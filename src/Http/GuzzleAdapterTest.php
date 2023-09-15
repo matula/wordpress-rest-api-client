@@ -1,6 +1,6 @@
 <?php
 
-namespace Vnn\WpApiClient\Http;
+namespace Matula\WpApiClient\Http;
 
 use Codeception\Specify;
 use GuzzleHttp\Psr7\Request;
@@ -14,7 +14,7 @@ use Psr\Http\Message\RequestInterface;
 
 /**
  * Class GuzzleAdapterTest
- * @package Vnn\Infrastructure\Http\Client
+ * @package Matula\Infrastructure\Http\Client
  */
 class GuzzleAdapterTest extends TestCase
 {

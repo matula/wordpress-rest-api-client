@@ -1,6 +1,6 @@
 <?php
 
-namespace Vnn\WpApiClient\Http;
+namespace Matula\WpApiClient\Http;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Uri;
@@ -8,7 +8,7 @@ use Psr\Http\Message\RequestInterface;
 
 /**
  * Class GuzzleAdapter
- * @package Vnn\Infrastructure\Http\Client
+ * @package Matula\Infrastructure\Http\Client
  */
 class GuzzleAdapter implements ClientInterface
 {

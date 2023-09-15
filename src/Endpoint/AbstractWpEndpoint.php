@@ -1,14 +1,14 @@
 <?php
 
-namespace Vnn\WpApiClient\Endpoint;
+namespace Matula\WpApiClient\Endpoint;
 
 use GuzzleHttp\Psr7\Request;
 use RuntimeException;
-use Vnn\WpApiClient\WpClient;
+use Matula\WpApiClient\WpClient;
 
 /**
  * Class AbstractWpEndpoint
- * @package Vnn\WpApiClient\Endpoint
+ * @package Matula\WpApiClient\Endpoint
  */
 abstract class AbstractWpEndpoint
 {

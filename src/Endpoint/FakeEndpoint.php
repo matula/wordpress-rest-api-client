@@ -1,6 +1,6 @@
 <?php
 
-namespace Vnn\WpApiClient\Endpoint;
+namespace Matula\WpApiClient\Endpoint;
 
 class FakeEndpoint extends AbstractWpEndpoint
 {

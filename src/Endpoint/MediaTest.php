@@ -1,6 +1,6 @@
 <?php
 
-namespace Vnn\WpApiClient\Endpoint;
+namespace Matula\WpApiClient\Endpoint;
 
 use Codeception\Specify;
 use Codeception\AssertThrows;
@@ -11,12 +11,12 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use RuntimeException;
-use Vnn\WpApiClient\WpClient;
-use Vnn\WpApiClient\Endpoint\Media;
+use Matula\WpApiClient\WpClient;
+use Matula\WpApiClient\Endpoint\Media;
 
 /**
  * Class MediaTest
- * @package Vnn\WpApiClient\Endpoint
+ * @package Matula\WpApiClient\Endpoint
  */
 class MediaTest extends TestCase
 {

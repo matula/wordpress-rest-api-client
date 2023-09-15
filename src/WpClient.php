@@ -1,17 +1,17 @@
 <?php
 
-namespace Vnn\WpApiClient;
+namespace Matula\WpApiClient;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
-use Vnn\WpApiClient\Auth\AuthInterface;
-use Vnn\WpApiClient\Endpoint;
-use Vnn\WpApiClient\Http\ClientInterface;
+use Matula\WpApiClient\Auth\AuthInterface;
+use Matula\WpApiClient\Endpoint;
+use Matula\WpApiClient\Http\ClientInterface;
 
 /**
  * Class WpClient
- * @package Vnn\WpApiClient
+ * @package Matula\WpApiClient
  *
  * @method Endpoint\Categories categories()
  * @method Endpoint\Comments comments()
@@ -80,7 +80,7 @@ class WpClient
     public function __call($endpoint, array $args)
     {
         if (!isset($this->endPoints[$endpoint])) {
-            $class = 'Vnn\WpApiClient\Endpoint\\' . ucfirst($endpoint);
+            $class = 'Matula\WpApiClient\Endpoint\\' . ucfirst($endpoint);
             if (class_exists($class)) {
                 $this->endPoints[$endpoint] = new $class($this);
             } else {

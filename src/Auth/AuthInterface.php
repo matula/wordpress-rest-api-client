@@ -1,12 +1,12 @@
 <?php
 
-namespace Vnn\WpApiClient\Auth;
+namespace Matula\WpApiClient\Auth;
 
 use Psr\Http\Message\RequestInterface;
 
 /**
  * Interface AuthInterface
- * @package Vnn\WpApiClient\Auth
+ * @package Matula\WpApiClient\Auth
  */
 interface AuthInterface
 {

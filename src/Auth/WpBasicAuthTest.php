@@ -1,6 +1,6 @@
 <?php
 
-namespace Vnn\WpApiClient\Auth;
+namespace Matula\WpApiClient\Auth;
 
 use Codeception\Specify;
 use GuzzleHttp\Psr7\Request;
@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class WpBasicAuthTest
- * @package Vnn\WpApiClient\Auth
+ * @package Matula\WpApiClient\Auth
  */
 class WpBasicAuthTest extends TestCase
 {

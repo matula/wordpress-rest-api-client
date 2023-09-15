@@ -1,10 +1,10 @@
 <?php
 
-namespace Vnn\WpApiClient\Endpoint;
+namespace Matula\WpApiClient\Endpoint;
 
 /**
  * Class PostTypes
- * @package Vnn\WpApiClient\Endpoint
+ * @package Matula\WpApiClient\Endpoint
  */
 class PostTypes extends AbstractWpEndpoint
 {

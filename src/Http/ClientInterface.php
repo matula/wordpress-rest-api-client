@@ -1,6 +1,6 @@
 <?php
 
-namespace Vnn\WpApiClient\Http;
+namespace Matula\WpApiClient\Http;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -8,7 +8,7 @@ use Psr\Http\Message\UriInterface;
 
 /**
  * Interface ClientInterface
- * @package Vnn\WpApiClient\Http
+ * @package Matula\WpApiClient\Http
  */
 interface ClientInterface
 {

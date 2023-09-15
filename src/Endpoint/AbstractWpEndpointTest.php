@@ -1,6 +1,6 @@
 <?php
 
-namespace Vnn\WpApiClient\Endpoint;
+namespace Matula\WpApiClient\Endpoint;
 
 use Codeception\Specify;
 use PHPUnit\Framework\TestCase;
@@ -8,12 +8,12 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Vnn\WpApiClient\WpClient;
-use Vnn\WpApiClient\Endpoint\AbstractWpEndpoint;
+use Matula\WpApiClient\WpClient;
+use Matula\WpApiClient\Endpoint\AbstractWpEndpoint;
 
 /**
  * Class AbstractWpEndpointTest
- * @package Vnn\WpApiClient\Endpoint
+ * @package Matula\WpApiClient\Endpoint
  */
 class AbstractWpEndpointTest extends TestCase
 {
