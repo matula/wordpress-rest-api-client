@@ -35,21 +35,16 @@ abstract class AbstractWpEndpoint
      * @return array
      * @throws \RuntimeException
      */
-    public function get($id = null, array $params = null)
+    public function get($id = null, array $params = null): array
     {
         $uri = $this->getEndpoint();
-        $uri .= (is_null($id)?'': '/' . $id);
-        $uri .= (is_null($params)?'': '?' . http_build_query($params));
+        $uri .= (is_null($id) ? '' : '/' . $id);
+        $uri .= (is_null($params) ? '' : '?' . http_build_query($params));
 
-        $request = new Request('GET', $uri);
+        $request  = new Request('GET', $uri);
         $response = $this->client->send($request);
 
-        if ($response->hasHeader('Content-Type')
-            && substr($response->getHeader('Content-Type')[0], 0, 16) === 'application/json') {
-            return json_decode($response->getBody()->getContents(), true);
-        }
-
-        throw new RuntimeException('Unexpected response');
+        return $this->generateResponse($response);
     }
 
     /**
@@ -57,7 +52,7 @@ abstract class AbstractWpEndpoint
      * @return array
      * @throws \RuntimeException
      */
-    public function save(array $data)
+    public function save(array $data): array
     {
         $url = $this->getEndpoint();
 
@@ -66,15 +61,10 @@ abstract class AbstractWpEndpoint
             unset($data['id']);
         }
 
-        $request = new Request('POST', $url, ['Content-Type' => 'application/json'], json_encode($data));
+        $request  = new Request('POST', $url, ['Content-Type' => 'application/json'], json_encode($data));
         $response = $this->client->send($request);
 
-        if ($response->hasHeader('Content-Type')
-            && substr($response->getHeader('Content-Type')[0], 0, 16) === 'application/json') {
-            return json_decode($response->getBody()->getContents(), true);
-        }
-
-        throw new RuntimeException('Unexpected response');
+        return $this->generateResponse($response);
     }
 
     /**
@@ -82,7 +72,7 @@ abstract class AbstractWpEndpoint
      * @return array
      * @throws \RuntimeException
      */
-    public function delete(array $data)
+    public function delete(array $data): array
     {
         $url = $this->getEndpoint();
 
@@ -90,12 +80,20 @@ abstract class AbstractWpEndpoint
             $url .= '/' . $data['ID'];
         }
 
-        $request = new Request('DELETE', $url);
+        $request  = new Request('DELETE', $url);
         $response = $this->client->send($request);
 
+        return $this->generateResponse($response);
+    }
+
+    /**
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @return mixed
+     */
+    protected function generateResponse(\Psr\Http\Message\ResponseInterface $response): mixed
+    {
         if ($response->hasHeader('Content-Type')
-            && substr($response->getHeader('Content-Type')[0], 0, 16) === 'application/json'
-        ) {
+            && str_starts_with($response->getHeader('Content-Type')[0], 'application/json')) {
             return json_decode($response->getBody()->getContents(), true);
         }
 

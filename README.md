@@ -15,37 +15,23 @@ This library can be installed with [Composer](https://getcomposer.org):
 composer require matula/wordpress-rest-api-client
 ```
 
-The library will require an Http library to run. [Guzzle](http://guzzlephp.org) is 
-supported by the library, but you can use any Http library of your choise, so long
-as your write an adapter for that library.
+The library uses [GuzzleHttp](http://guzzlephp.org)
 
-To install Guzzle:
-
-```text
-composer require guzzlehttp/guzzle
-```
 
 ## Usage
 
 Example:
 
 ```php
-use Vnn\WpApiClient\Auth\WpBasicAuth;
-use Vnn\WpApiClient\Http\GuzzleAdapter;
-use Vnn\WpApiClient\WpClient;
+use Matula\WpApiClient\Auth\WpBasicAuth;
+use Matula\WpApiClient\WpClient;
 
 require 'vendor/autoload.php';
 
-$client = new WpClient(new GuzzleAdapter(new GuzzleHttp\Client()), 'http://yourwordpress.com');
+$client = new WpClient('http://yourwordpress.com');
 $client->setCredentials(new WpBasicAuth('user', 'securepassword'));
 
 $user = $client->users()->get(2);
 
 print_r($user);
-```
-
-## Testing
-```bash
-composer install
-vendor/bin/phpunit
 ```

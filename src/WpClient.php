@@ -2,6 +2,8 @@
 
 namespace Matula\WpApiClient;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
@@ -25,58 +27,30 @@ use Matula\WpApiClient\Http\ClientInterface;
  */
 class WpClient
 {
-    /**
-     * @var ClientInterface
-     */
-    private $httpClient;
+    private Client|ClientInterface $httpClient;
 
-    /**
-     * @var AuthInterface
-     */
-    private $credentials;
+    private ?AuthInterface $credentials = null;
 
-    /**
-     * @var string
-     */
-    private $wordpressUrl;
+    private string $wordpressUrl;
 
-    /**
-     * @var array
-     */
-    private $endPoints = [];
+    private array $endPoints = [];
 
-    /**
-     * WpClient constructor.
-     * @param ClientInterface $httpClient
-     * @param string $wordpressUrl
-     */
-    public function __construct(ClientInterface $httpClient, $wordpressUrl = '')
+    public function __construct(string $wordpressUrl = '')
     {
-        $this->httpClient = $httpClient;
+        $this->httpClient   = new Client();
         $this->wordpressUrl = $wordpressUrl;
     }
 
-    /**
-     * @param $wordpressUrl
-     */
-    public function setWordpressUrl($wordpressUrl)
+    public function setWordpressUrl(string $wordpressUrl): void
     {
         $this->wordpressUrl = $wordpressUrl;
     }
 
-    /**
-     * @param AuthInterface $auth
-     */
-    public function setCredentials(AuthInterface $auth)
+    public function setCredentials(AuthInterface $auth): void
     {
         $this->credentials = $auth;
     }
 
-    /**
-     * @param $endpoint
-     * @param array $args
-     * @return Endpoint\AbstractWpEndpoint
-     */
     public function __call($endpoint, array $args)
     {
         if (!isset($this->endPoints[$endpoint])) {
@@ -91,11 +65,7 @@ class WpClient
         return $this->endPoints[$endpoint];
     }
 
-    /**
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     */
-    public function send(RequestInterface $request)
+    public function send(RequestInterface $request): ResponseInterface
     {
         if ($this->credentials) {
             $request = $this->credentials->addCredentials($request);
@@ -105,6 +75,10 @@ class WpClient
             $this->httpClient->makeUri($this->wordpressUrl . $request->getUri())
         );
 
-        return $this->httpClient->send($request);
+        try {
+            return $this->httpClient->send($request);
+        } catch (GuzzleException $e) {
+            throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 }

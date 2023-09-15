@@ -8,10 +8,7 @@ namespace Matula\WpApiClient\Endpoint;
  */
 class Posts extends AbstractWpEndpoint
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getEndpoint()
+    protected function getEndpoint(): string
     {
         return '/wp-json/wp/v2/posts';
     }
