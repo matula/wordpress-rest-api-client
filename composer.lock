@@ -3006,7 +3006,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "psr/http-message": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
