@@ -2,6 +2,7 @@
 
 namespace Matula\WpApiClient\Endpoint;
 
+use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
 use RuntimeException;
 
@@ -43,6 +44,15 @@ class Media extends AbstractWpEndpoint
                 $mimeType = mime_content_type($filePath);
             }
 
+            $multipart = new MultipartStream([
+                [
+                    'name' => 'file',
+                    'filename' => basename($filePath),
+                    'Mime-Type' => mime_content_type($filePath),
+                    'contents' => fopen($filePath, 'r'),
+                ]
+            ]);
+
             $request = new Request(
                 'POST',
                 $url,
@@ -50,12 +60,11 @@ class Media extends AbstractWpEndpoint
                     'Content-Type' => $mimeType,
                     'Content-Disposition' => 'attachment; filename="'.$fileName.'"'
                 ],
-                $fileHandle
+                $multipart
             );
             $response = $this->client->send($request);
-            fclose($fileHandle);
             if ($response->hasHeader('Content-Type') &&
-                substr($response->getHeader('Content-Type')[0], 0, 16) === 'application/json') {
+                str_starts_with($response->getHeader('Content-Type')[0], 'application/json')) {
                     return json_decode($response->getBody()->getContents(), true);
             }
         }
